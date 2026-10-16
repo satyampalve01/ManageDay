@@ -19,6 +19,7 @@
         </a>
         <nav aria-label="Main navigation">
             <a href="#dashboard">Dashboard</a>
+            <a href="#add-transaction">Add Transaction</a>
             <a href="#features">Features</a>
             <a href="#about">About</a>
         </nav>
@@ -192,6 +193,103 @@
         </div>
     </section>
 
+    <!-- Add Transaction Section -->
+    <section class="transaction-section section" id="add-transaction">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">TRANSACTION MANAGER</span>
+                <h2>Add New Transaction</h2>
+                <p>Keep track of your income and expenses.</p>
+            </div>
+            <div class="transaction-form-card">
+                <form id="transactionForm">
+ 
+                <!-- Transaction Type -->
+                    <div class="form-group">
+                        <label for="transactionType">Transaction Type</label>
+                        <select id="transactionType" name="transactionType" required>
+                            <option value="">Select transaction type</option>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                        <small class="error-message" id="typeError"></small>
+                    </div>
+
+                    <!-- Amount -->
+                    <div class="form-group">
+                        <label for="transactionAmount">Amount (₹)</label>
+                        <input
+                            type="number"
+                            id="transactionAmount"
+                            name="transactionAmount"
+                            placeholder="Enter amount"
+                            min="0.01"
+                            step="0.01"
+                            required
+                        >
+                        <small class="error-message" id="amountError"></small>
+                    </div>
+
+                    <!-- Category -->
+                    <div class="form-group">
+                        <label for="transactionCategory">Category</label>
+                        <select id="transactionCategory" name="transactionCategory" required>
+                            <option value="">Select category</option>
+                            <option value="salary">Salary</option>
+                            <option value="freelance">Freelance</option>
+                            <option value="food">Food</option>
+                            <option value="transport">Transport</option>
+                            <option value="education">Education</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="bills">Bills</option>
+                            <option value="health">Health</option>
+                             <option value="other">Other</option>
+                        </select>
+                        <small class="error-message" id="categoryError"></small>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="transactionDescription">Description</label>
+                        <input
+                            type="text"
+                            id="transactionDescription"
+                            name="transactionDescription"
+                            placeholder="e.g. Monthly salary"
+                            maxlength="100"
+                            required
+                        >
+                        <small class="error-message" id="descriptionError"></small>
+                    </div>
+
+                    <!-- Date -->
+                    <div class="form-group">
+                        <label for="transactionDate">Transaction Date</label>
+                        <input
+                            type="date"
+                            id="transactionDate"
+                            name="transactionDate"
+                            required
+                        >
+                        <small class="error-message" id="dateError"></small>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary transaction-submit">
+                        Add Transaction
+                    </button>
+
+                    <p
+                        class="form-message"
+                        id="formMessage"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+                </form>
+            </div>
+        </div>
+    </section>
+    
     <section class="features section" id="features">
         <div class="container">
             <div class="section-heading">
@@ -216,7 +314,7 @@
                     </p>
                 </article>
 
-                <article class="feature-card">
+                <article clasgit log -5 --onelines="feature-card">
                     <div class="feature-icon" aria-hidden="true">
                         ◷
                     </div>
