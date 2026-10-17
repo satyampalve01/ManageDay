@@ -138,57 +138,21 @@
                         <h3>Recent Transactions</h3>
                         <p>A quick look at your latest spending.</p>
                     </div>
-                    <button
-                        class="text-button"
-                        type="button"
-                    >
+                    <button class="text-button" type="button" id="viewAllTransactions">
                         View All
                     </button>
                 </div>
-
-                <div class="transaction-list">
-                    <article class="transaction-row">
-                        <div class="transaction-info">
-
-                            <div class="transaction-icon food-icon">
-                                F
-                            </div>
-                            <div>
-                                <h4>College Lunch</h4>
-                                <p>Food · 14 Oct 2026</p>
-                            </div>
-                        </div>
-
-                        <strong class="amount-expense">−₹120</strong>
-                    </article>
-
-                    <article class="transaction-row">
-                        <div class="transaction-info">
-                            <div class="transaction-icon travel-icon">
-                            T
-                            </div>
-                            <div>
-                                <h4>Bus Ticket</h4>
-                                <p>Travel · 13 Oct 2026</p>
-                            </div>
-                        </div>
-                        <strong class="amount-expense">−₹40</strong>
-                    </article>
-
-                    <article class="transaction-row">
-                        <div class="transaction-info">
-                            <div class="transaction-icon income-transaction-icon">
-                            I
-                            </div>
-                            <div>
-                                <h4>Monthly Allowance</h4>
-                                <p>Income · 12 Oct 2026</p>
-                            </div>
-                        </div>
-                        <strong class="amount-income">+₹5,000</strong>
-                    </article>
-
+                
+                <!-- JavaScript will display transactions here -->
+                <div class="transaction-list" id="transactionList">
+                    
+                    <!-- Empty message -->
+                     <div class="empty-transactions" id="emptyTransactions">
+                        <h4>No transactions yet</h4>
+                        <p>Add your first income or expense to get started.</p>
+                    </div>
                 </div>
+
             </section>
         </div>
     </section>
@@ -266,10 +230,10 @@
                     <div class="form-group">
                         <label for="transactionDate">Transaction Date</label>
                         <input
-                            type="date"
+                            type="date" 
                             id="transactionDate"
                             name="transactionDate"
-                            required
+                            requiredhhhh
                         >
                         <small class="error-message" id="dateError"></small>
                     </div>
