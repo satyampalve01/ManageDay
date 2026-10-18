@@ -131,28 +131,30 @@ if (transactionForm) {
 
     transactionForm.addEventListener("submit", function (event) {
         event.preventDefault();
-
+        
         if (!validateTransactionForm()) {
             formMessage.textContent = "Please correct the errors above.";
-            formMessage.classList.add("error");
+            formMessage.className = "form-message error";
             return;
         }
 
-        // Day 3: Validate and preview the transaction.
-        // Saving transactions and updating the dashboard come later.
-
-        formMessage.textContent =
-            "Validation successful! Transaction details are ready.";
-
-        formMessage.classList.add("success");
-
-        console.log("Validated transaction:", {
+        const transaction = {
+            id: Date.now(),
             type: transactionType.value,
             amount: Number(transactionAmount.value),
             category: transactionCategory.value,
             description: transactionDescription.value.trim(),
             date: transactionDate.value
-        });
+        };
+
+        renderTransaction(transaction);
+
+        formMessage.textContent = "Transaction added successfully!";
+        formMessage.className = "form-message success";
+
+        transactionForm.reset();
+
+        transactionDate.value = new Date().toLocaleDateString("en-CA");
     });
 
     // Clear individual field errors when the user edits the field.
@@ -175,4 +177,60 @@ if (transactionForm) {
     transactionDate.addEventListener("change", () =>
         clearError(transactionDate, "dateError")
     );
+}
+
+// Day 4: Display transactions dynamically
+
+const transactionList = document.getElementById("transactionList");
+
+function renderTransaction(transaction) {
+    // Create transaction row
+    const item = document.createElement("article");
+    item.className = "transaction-row";
+
+    // Transaction information
+    const info = document.createElement("div");
+    info.className = "transaction-info";
+
+    const icon = document.createElement("div");
+    icon.className = "transaction-icon";
+
+    icon.textContent =
+        transaction.type === "income" ? "I" : "E";
+
+    const details = document.createElement("div");
+
+    const title = document.createElement("h4");
+    title.textContent = transaction.description;
+
+    const metadata = document.createElement("p");
+    metadata.textContent =
+        `${transaction.category} · ${transaction.date}`;
+
+    details.append(title, metadata);
+    info.append(icon, details);
+
+    // Transaction amount
+    const amount = document.createElement("strong");
+
+    amount.className =
+        transaction.type === "income"
+            ? "amount-income"
+            : "amount-expense";
+
+    amount.textContent =
+        `${transaction.type === "income" ? "+" : "−"}₹${transaction.amount}`;
+
+    // Add everything to the transaction row
+    item.append(info, amount);
+
+    // Remove empty message
+    const emptyMessage = document.getElementById("emptyTransactions");
+
+    if (emptyMessage) {
+        emptyMessage.remove();
+    }
+
+    // Display the latest transaction first
+    transactionList.prepend(item);
 }
