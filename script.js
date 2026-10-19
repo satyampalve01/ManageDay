@@ -149,6 +149,8 @@ if (transactionForm) {
 
         renderTransaction(transaction);
 
+        updateDashboard();
+
         formMessage.textContent = "Transaction added successfully!";
         formMessage.className = "form-message success";
 
@@ -182,6 +184,9 @@ if (transactionForm) {
 // Day 4: Display transactions dynamically
 
 const transactionList = document.getElementById("transactionList");
+
+// Store transactions in memory
+const transactions = [];
 
 function renderTransaction(transaction) {
     // Create transaction row
@@ -231,6 +236,110 @@ function renderTransaction(transaction) {
         emptyMessage.remove();
     }
 
+    // Store transaction data
+    transactions.push(transaction);
+    
+
     // Display the latest transaction first
     transactionList.prepend(item);
+}
+
+// Day 5: Dashboard calculation elements
+
+const totalIncomeElement = document.getElementById("totalIncome");
+const totalExpensesElement = document.getElementById("totalExpenses");
+const availableBalanceElement = document.getElementById("availableBalance");
+
+const budgetSpentElement = document.getElementById("budgetSpent");
+const budgetProgressElement = document.getElementById("budgetProgress");
+const budgetMessageElement = document.getElementById("budgetMessage");
+
+// Monthly budget amount
+const monthlyBudget = 8000;
+
+// Day 5: Calculate and update dashboard values
+
+function updateDashboard() {
+    let totalIncome = 0;
+    let totalExpenses = 0;
+
+    // Calculate total income and expenses
+    transactions.forEach(function (transaction) {
+        if (transaction.type === "income") {
+            totalIncome += transaction.amount;
+        } else if (transaction.type === "expense") {
+            totalExpenses += transaction.amount;
+        }
+    });
+
+    // Calculate available balance
+    const availableBalance = totalIncome - totalExpenses;
+
+    // Format currency
+    function formatCurrency(amount) {
+        return `₹${amount.toLocaleString("en-IN", {
+            maximumFractionDigits: 2
+        })}`;
+    }
+
+    // Update summary cards
+    if (totalIncomeElement) {
+        totalIncomeElement.textContent = formatCurrency(totalIncome);
+    }
+
+    if (totalExpensesElement) {
+        totalExpensesElement.textContent = formatCurrency(totalExpenses);
+    }
+
+    if (availableBalanceElement) {
+        availableBalanceElement.textContent =
+            formatCurrency(availableBalance);
+    }
+
+    // Calculate current month's expenses
+    const today = new Date();
+
+    const monthlyExpenses = transactions.reduce(function (total, transaction) {
+        const transactionDate = new Date(
+            `${transaction.date}T00:00:00`
+        );
+
+        const isCurrentMonth =
+            transactionDate.getMonth() === today.getMonth() &&
+            transactionDate.getFullYear() === today.getFullYear();
+
+        if (transaction.type === "expense" && isCurrentMonth) {
+            return total + transaction.amount;
+        }
+
+        return total;
+    }, 0);
+
+    // Calculate budget usage percentage
+    const budgetPercentage = monthlyBudget > 0
+        ? (monthlyExpenses / monthlyBudget) * 100
+        : 0;
+
+    // Update budget spent amount
+    if (budgetSpentElement) {
+        budgetSpentElement.textContent =
+            formatCurrency(monthlyExpenses);
+    }
+
+    // Update progress bar
+    if (budgetProgressElement) {
+        budgetProgressElement.style.width =
+            `${Math.min(budgetPercentage, 100)}%`;
+
+        budgetProgressElement.classList.toggle(
+            "over-budget",
+            monthlyExpenses > monthlyBudget
+        );
+    }
+
+    // Update budget message
+    if (budgetMessageElement) {
+        budgetMessageElement.textContent =
+            `You've used ${budgetPercentage.toFixed(1)}% of your monthly budget.`;
+    }
 }
