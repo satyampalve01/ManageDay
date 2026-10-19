@@ -759,9 +759,8 @@ nav {
         grid-column: 1;
     }
 }
-/* ==============================
-   Day 4: Transaction List
-================================= */
+
+   /* Day 4: Transaction List */
 
 .transactions-panel {
     margin-top: 30px;
@@ -925,4 +924,18 @@ nav {
     .transaction-amount {
         font-size: 13px;
     }
+}
+
+/* Day 5: Budget Progress */
+
+.budget-progress-fill {
+    width: 0%;
+    height: 100%;
+    background: #0d9488;
+    border-radius: inherit;
+    transition: width 0.3s ease;
+}
+
+.budget-progress-fill.over-budget {
+    background: #dc2626;
 }
