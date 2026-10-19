@@ -71,7 +71,7 @@
                     <span>Total Income</span>
                     <span class="summary-icon income-icon">↑</span>
                     </div>
-                    <!-- <h3> add total income</h3> -->
+                    <h3 id="totalIncome">₹0</h3>
                     <p class="summary-note">Monthly income</p>
                 </article>
 
@@ -80,7 +80,7 @@
                         <span>Total Expenses</span>
                         <span class="summary-icon expense-icon">↓</span>
                     </div>
-                    <!-- <h3> total expenses show here </h3> -->
+                    <h3 id="totalExpenses">₹0</h3>
                     <p class="summary-note">Monthly spending</p>
                 </article>
 
@@ -89,14 +89,15 @@
                         <span>Available Balance</span>
                         <span class="summary-icon balance-icon">₹</span>
                     </div>
-                    <!-- <h3> available balaance shows here </h3> -->
+                    <h3 id="availableBalance">₹0</h3>
                     <p class="summary-note">Income minus expenses</p>
                 </article>
 
             </div>
 
         <!-- Budget Overview -->
-         <!-- This does not contain any actual input data. I have only used raw data to test the functionality. In the future, we will update this stack to store and manage user data. -->
+         <!-- This does not contain any actual input data. I have only used raw data to test the functionality.
+           In the future, we will update this stack to store and manage user data. -->
             <section class="budget-panel">
                 <div class="panel-heading">
                     <div>
@@ -113,7 +114,7 @@
                     </div>
                     <div>
                         <span class="muted-label">Spent So Far</span>
-                        <strong>₹5,499</strong>
+                        <strong id="budgetSpent">₹0</strong>
                     </div>
                 </div>
                 <div
@@ -124,10 +125,10 @@
                     aria-valuemax="100"
                     aria-valuenow="68.74"
                 >
-                    <div class="budget-progress-fill"></div>
+                    <div class="budget-progress-fill" id="budgetProgress"></div>
                 </div>
-                <p class="budget-message">
-                    You've used 68.74% of your monthly budget.
+                <p class="budget-message" id="budget-message">
+                    You've used 0% of your monthly budget.
                 </p>
             </section>
 
