@@ -295,7 +295,7 @@ function refreshTransactions() {
         });
     }
 
-    updateDashboard();
+    updateDashboard(); 
 }
 });
 
