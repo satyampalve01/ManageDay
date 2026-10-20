@@ -939,3 +939,44 @@ nav {
 .budget-progress-fill.over-budget {
     background: #dc2626;
 }
+
+/* Day 6: Transaction Actions */
+
+.transaction-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 7px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.edit-button {
+    color: #2563eb;
+}
+
+.edit-button:hover {
+    background: #eff6ff;
+}
+
+.delete-button {
+    color: #dc2626;
+}
+
+.delete-button:hover {
+    background: #fef2f2;
+}
+
+.edit-button:focus-visible,
+.delete-button:focus-visible {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}

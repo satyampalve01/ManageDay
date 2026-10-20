@@ -227,7 +227,85 @@ function renderTransaction(transaction) {
         `${transaction.type === "income" ? "+" : "−"}₹${transaction.amount}`;
 
     // Add everything to the transaction row
-    item.append(info, amount);
+    // item.append(info, amount);
+
+    // Edit button
+const editButton = document.createElement("button");
+editButton.type = "button";
+editButton.className = "edit-button";
+editButton.textContent = "Edit";
+editButton.addEventListener("click", function () {
+    editTransaction(transaction.id);
+
+    // Delete Transaction
+
+function deleteTransaction(id) {
+    const confirmed = confirm(
+        "Are you sure you want to delete this transaction?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const index = transactions.findIndex(function (item) {
+        return item.id === id;
+    });
+
+    if (index === -1) {
+        return;
+    }
+
+    transactions.splice(index, 1);
+
+    refreshTransactions();
+}
+});
+
+// Delete button
+const deleteButton = document.createElement("button");
+deleteButton.type = "button";
+deleteButton.className = "delete-button";
+deleteButton.textContent = "Delete";
+deleteButton.addEventListener("click", function () {
+    deleteTransaction(transaction.id);
+
+    // Refresh transaction list and dashboard
+
+function refreshTransactions() {
+    transactionList.innerHTML = "";
+
+    if (transactions.length === 0) {
+        const emptyMessage = document.createElement("div");
+        emptyMessage.className = "empty-transactions";
+        emptyMessage.id = "emptyTransactions";
+
+        const heading = document.createElement("h4");
+        heading.textContent = "No transactions yet";
+
+        const message = document.createElement("p");
+        message.textContent =
+            "Add your first income or expense to get started.";
+
+        emptyMessage.append(heading, message);
+        transactionList.appendChild(emptyMessage);
+    } else {
+        transactions.forEach(function (transaction) {
+            renderTransactionRow(transaction);
+        });
+    }
+
+    updateDashboard();
+}
+});
+
+// Transaction actions
+const actions = document.createElement("div");
+actions.className = "transaction-actions";
+actions.append(editButton, deleteButton);
+
+// Add everything to the transaction row
+item.append(info, amount, actions);
 
     // Remove empty message
     const emptyMessage = document.getElementById("emptyTransactions");
@@ -242,6 +320,33 @@ function renderTransaction(transaction) {
 
     // Display the latest transaction first
     transactionList.prepend(item);
+}
+
+// Day 6: Edit Transaction
+
+function editTransaction(id) {
+    const transaction = transactions.find(function (item) {
+        return item.id === id;
+    });
+
+    if (!transaction) {
+        return;
+    }
+
+    document.getElementById("transactionType").value = transaction.type;
+    document.getElementById("transactionAmount").value = transaction.amount;
+    document.getElementById("transactionCategory").value = transaction.category;
+    document.getElementById("transactionDescription").value = transaction.description;
+    document.getElementById("transactionDate").value = transaction.date;
+
+    document.getElementById("add-transaction").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    document.getElementById("formMessage").textContent =
+        "Edit the details and submit to update the transaction.";
+
+    document.getElementById("formMessage").className = "form-message";
 }
 
 // Day 5: Dashboard calculation elements
