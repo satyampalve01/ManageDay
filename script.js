@@ -148,6 +148,7 @@ if (transactionForm) {
         };
 
         renderTransaction(transaction);
+        saveTransactions();
 
         updateDashboard();
 
@@ -186,7 +187,53 @@ if (transactionForm) {
 const transactionList = document.getElementById("transactionList");
 
 // Store transactions in memory
-const transactions = [];
+// Day 7: Load transactions from LocalStorage
+
+let transactions = [];
+
+try {
+    const savedTransactions = localStorage.getItem(
+        "manageDayTransactions"
+    );
+
+    if (savedTransactions) {
+        const parsedTransactions = JSON.parse(savedTransactions);
+
+        if (Array.isArray(parsedTransactions)) {
+            transactions = parsedTransactions.filter(function (transaction) {
+                return (
+                    transaction &&
+                    Number.isFinite(transaction.id) &&
+                    ["income", "expense"].includes(transaction.type) &&
+                    Number.isFinite(transaction.amount) &&
+                    transaction.amount > 0 &&
+                    typeof transaction.category === "string" &&
+                    typeof transaction.description === "string" &&
+                    typeof transaction.date === "string"
+                );
+            });
+        }
+    }
+} catch (error) {
+    console.error("Unable to load saved transactions:", error);
+}
+
+// Save transactions to LocalStorage
+
+function saveTransactions() {
+    try {
+        localStorage.setItem(
+            "manageDayTransactions",
+            JSON.stringify(transactions)
+        );
+    } catch (error) {
+        console.error("Unable to save transactions:", error);
+
+        alert(
+            "Unable to save transactions. Please check browser storage."
+        );
+    }
+}
 
 function renderTransaction(transaction) {
     // Create transaction row
@@ -257,6 +304,8 @@ function deleteTransaction(id) {
     }
 
     transactions.splice(index, 1);
+
+    saveTransactions();
 
     refreshTransactions();
 }
@@ -448,3 +497,7 @@ function updateDashboard() {
             `You've used ${budgetPercentage.toFixed(1)}% of your monthly budget.`;
     }
 }
+
+// Restore transactions when the page loads
+
+refreshTransactions();
