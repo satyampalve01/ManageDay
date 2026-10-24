@@ -497,7 +497,6 @@ function updateDashboard() {
             `You've used ${budgetPercentage.toFixed(1)}% of your monthly budget.`;
     }
 }
-
 // Restore transactions when the page loads
 
 refreshTransactions();
