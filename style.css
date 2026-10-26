@@ -1037,3 +1037,47 @@ nav {
         justify-content: flex-end;
     }
 }
+
+/* Transaction Search Styling */
+
+.transaction-filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.search-box {
+    width: 100%;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1f2937;
+    font-size: 14px;
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.search-box input:focus {
+    border-color: #0d9488;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+}
+
+.search-box input::placeholder {
+    color: #9ca3af;
+}
+
+@media (max-width: 576px) {
+    .transaction-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
