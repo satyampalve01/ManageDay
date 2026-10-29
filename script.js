@@ -371,7 +371,7 @@ item.append(info, amount, actions);
     transactionList.prepend(item);
 }
 
-// Day 6: Edit Transaction
+// : Edit Transaction
 
 function editTransaction(id) {
     const transaction = transactions.find(function (item) {
