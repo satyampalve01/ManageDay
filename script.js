@@ -500,3 +500,63 @@ function updateDashboard() {
 // Restore transactions when the page loads
 
 refreshTransactions();
+
+// Day 8: Filter transactions by description
+
+function searchTransactions() {
+    if (!transactionSearch) {
+        return;
+    }
+
+    const searchText = transactionSearch.value
+        .trim()
+        .toLowerCase();
+
+    const filteredTransactions = transactions.filter(function (transaction) {
+        return transaction.description
+            .toLowerCase()
+            .includes(searchText);
+    });
+
+    displayFilteredTransactions(filteredTransactions);
+}
+
+// Display filtered transactions
+
+function displayFilteredTransactions(filteredTransactions) {
+    if (!transactionList) {
+        return;
+    }
+
+    transactionList.innerHTML = "";
+
+    if (filteredTransactions.length === 0) {
+        const emptyMessage = document.createElement("div");
+        emptyMessage.className = "empty-transactions";
+
+        const heading = document.createElement("h4");
+        heading.textContent = "No matching transactions";
+
+        const message = document.createElement("p");
+        message.textContent =
+            "Try another search term.";
+
+        emptyMessage.append(heading, message);
+        transactionList.appendChild(emptyMessage);
+
+        return;
+    }
+
+    filteredTransactions.forEach(function (transaction) {
+        renderTransactionRow(transaction);
+    });
+}
+
+// Search whenever the user types
+
+if (transactionSearch) {
+    transactionSearch.addEventListener(
+        "input",
+        searchTransactions
+    );
+}
