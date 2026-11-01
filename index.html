@@ -130,6 +130,41 @@
                 <p class="budget-message" id="budget-message">
                     You've used 0% of your monthly budget.
                 </p>
+
+                <!-- Monthly Budget Settings -->
+                 <div class="budget-settings">
+                    
+                    <h3>Set Monthly Budget</h3>
+                    
+                    <form id="budgetForm">
+                        
+                        <label for="monthlyBudgetInput">
+                            Enter your monthly budget
+                        </label>
+                        
+                        <div class="budget-input-group">
+                            <span>₹</span>
+                            
+                            <input
+                                type="number"
+                                id="monthlyBudgetInput"
+                                placeholder="Enter budget amount"
+                                min="1"
+                                step="0.01"
+                                required
+                            >
+
+                            <button type="submit">
+                                Save Budget
+                            </button>
+
+                        </div>
+                        
+                        <p id="budgetFormMessage" class="budget-form-message"></p>
+                    
+                    </form>
+
+                </div>
             </section>
 
         <!-- Recent Transactions -->
@@ -144,7 +179,7 @@
                     </button>
                 </div>
 
-                <!-- Day 8: Transaction Search and Filters -->
+                <!-- Transaction Search and Filters -->
                 <div class="transaction-filters">
                     <div class="search-box">
                         <input
