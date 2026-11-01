@@ -1081,3 +1081,104 @@ nav {
         align-items: stretch;
     }
 }
+
+/*  Monthly Budget Settings */
+
+.budget-settings {
+    margin-top: 24px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.budget-settings h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #1f2937;
+    font-size: 18px;
+}
+
+.budget-settings label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4b5563;
+    font-size: 14px;
+}
+
+.budget-input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.budget-input-group span {
+    color: #374151;
+    font-weight: 600;
+}
+
+.budget-input-group input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.budget-input-group input:focus {
+    border-color: #0d9488;
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+}
+
+.budget-input-group button {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #0d9488;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.budget-input-group button:hover {
+    background: #0f766e;
+}
+
+.budget-form-message {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.budget-form-message.success {
+    color: #15803d;
+}
+
+.budget-form-message.error {
+    color: #dc2626;
+}
+
+/* Mobile responsive design */
+
+@media (max-width: 480px) {
+
+    .budget-settings {
+        padding: 16px;
+    }
+
+    .budget-input-group {
+        flex-wrap: wrap;
+    }
+
+    .budget-input-group input {
+        flex-basis: 70%;
+    }
+
+    .budget-input-group button {
+        width: 100%;
+    }
+
+}
