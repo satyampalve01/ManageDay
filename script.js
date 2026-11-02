@@ -409,7 +409,93 @@ const budgetProgressElement = document.getElementById("budgetProgress");
 const budgetMessageElement = document.getElementById("budgetMessage");
 
 // Monthly budget amount
-const monthlyBudget = 8000;
+//: Monthly Budget Functionality
+
+let monthlyBudget = 8000;
+
+const budgetForm = document.getElementById("budgetForm");
+const monthlyBudgetInput = document.getElementById("monthlyBudgetInput");
+const budgetFormMessage = document.getElementById("budgetFormMessage");
+
+// Load saved budget from LocalStorage
+try {
+    const savedBudget = Number(
+        localStorage.getItem("manageDayMonthlyBudget")
+    );
+
+    if (Number.isFinite(savedBudget) && savedBudget > 0) {
+        monthlyBudget = savedBudget;
+    }
+} catch (error) {
+    console.error("Unable to load monthly budget:", error);
+}
+
+// Show the saved budget in the input
+if (monthlyBudgetInput) {
+    monthlyBudgetInput.value = monthlyBudget;
+}
+
+// Save monthly budget
+
+if (budgetForm) {
+
+    budgetForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const enteredBudget = Number(monthlyBudgetInput.value);
+
+        // Validate budget
+        if (
+            !Number.isFinite(enteredBudget) ||
+            enteredBudget <= 0
+        ) {
+            budgetFormMessage.textContent =
+                "Please enter a valid budget greater than zero.";
+
+            budgetFormMessage.className =
+                "budget-form-message error";
+
+            return;
+        }
+
+        // Update the budget
+        monthlyBudget = enteredBudget;
+
+        // Save budget in LocalStorage
+        try {
+
+            localStorage.setItem(
+                "manageDayMonthlyBudget",
+                String(monthlyBudget)
+            );
+
+        } catch (error) {
+
+            console.error("Unable to save monthly budget:", error);
+
+            budgetFormMessage.textContent =
+                "Budget could not be saved in this browser.";
+
+            budgetFormMessage.className =
+                "budget-form-message error";
+
+            return;
+        }
+
+        // Show success message
+        budgetFormMessage.textContent =
+            "Monthly budget saved successfully!";
+
+        budgetFormMessage.className =
+            "budget-form-message success";
+
+        // Update dashboard
+        updateDashboard();
+
+    });
+
+}
 
 // Day 5: Calculate and update dashboard values
 
@@ -493,9 +579,22 @@ function updateDashboard() {
 
     // Update budget message
     if (budgetMessageElement) {
-        budgetMessageElement.textContent =
+        
+        if (monthlyExpenses > monthlyBudget) {
+            
+            budgetMessageElement.textContent =
+            `Budget exceeded by ${formatCurrency(
+                monthlyExpenses - monthlyBudget
+            )}.`;
+        
+        } else {
+            
+            budgetMessageElement.textContent =
+            
             `You've used ${budgetPercentage.toFixed(1)}% of your monthly budget.`;
+        }
     }
+
 }
 // Restore transactions when the page loads
 
